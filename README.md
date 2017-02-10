@@ -5,6 +5,8 @@ In order to stabilize the GAN's training and accelerate the process altogether, 
 
 **This is a work in progress**, and is full of all manner of hacks and hard-coded shortcuts that will disappear or (hopefully) become more elegant as I make revisions.
 
+Visit [EZGAN.ipynb](EZGAN.ipynb) for a full explanation with interactive code, or run [gan-controlled.py](gan-controlled.py) directly. Note that the Python script produces very little printed output; it sends scalar summaries and sample images to [TensorBoard](https://www.tensorflow.org/how_tos/summaries_and_tensorboard/) and saves model checkpoints every 5,000 training steps.
+
 This GAN generates images like these:
 
 <table style="border:0">
