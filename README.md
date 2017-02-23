@@ -8,23 +8,4 @@ Visit [EZGAN.ipynb](EZGAN.ipynb) for a full explanation with interactive code, o
 Both the notebook and the Python script use a clever functional approach to feeding the output of the generator into the descriminator that comes from [Adit Deshpande](https://adeshpande3.github.io/), with whom I'm collaborating on a forthcoming O'Reilly tutorial on GANs.
 
 This GAN generates images like these cherry-picked examples:
-
-<table style="border:0">
-    <tr style="border:0">
-        <td style="border:0">
-            <img src="images/0.png"/>
-        </td>
-        <td style="border:0">
-            <img src="images/1.png"/>
-        </td>
-        <td style="border:0">
-            <img src="images/3.png"/>
-        </td>
-        <td style="border:0">
-            <img src="images/3a.png"/>
-        </td>
-        <td style="border:0">
-            <img src="images/5.png"/>
-        </td>
-    </tr>
-</table>
+<img src="images/gan-images-final.gif"/>
