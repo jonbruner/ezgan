@@ -106,10 +106,10 @@ Dg = discriminator(Gz, reuse=True)
 # Dg will hold discriminator prediction probabilities for generated images
 
 # == LOSSES AND OPTIMIZERS ==
-g_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(Dg, tf.ones_like(Dg)))
+g_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=Dg, labels=tf.ones_like(Dg)))
 
-d_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(Dx, tf.fill([batch_size, 1], 0.9)))
-d_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(Dg, tf.zeros_like(Dg)))
+d_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=Dx, labels=tf.fill([batch_size, 1], 0.9)))
+d_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=Dg, labels=tf.zeros_like(Dg)))
 d_loss = d_loss_real + d_loss_fake
 
 tf.summary.scalar('Generator_loss', g_loss)
@@ -135,12 +135,13 @@ tvars = tf.trainable_variables()
 d_vars = [var for var in tvars if 'd_' in var.name]
 g_vars = [var for var in tvars if 'g_' in var.name]
 
-# Discriminator training operations
-d_trainer_fake = tf.train.AdamOptimizer(0.001).minimize(d_loss_fake, var_list=d_vars)
-d_trainer_real = tf.train.AdamOptimizer(0.001).minimize(d_loss_real, var_list=d_vars)
+with tf.variable_scope(tf.get_variable_scope(), reuse=False) as scope:
+	# Discriminator training operations
+	d_trainer_fake = tf.train.AdamOptimizer(0.001).minimize(d_loss_fake, var_list=d_vars)
+	d_trainer_real = tf.train.AdamOptimizer(0.001).minimize(d_loss_real, var_list=d_vars)
 
-# Generator training operations
-g_trainer = tf.train.AdamOptimizer(0.004).minimize(g_loss, var_list=g_vars)
+	# Generator training operations
+	g_trainer = tf.train.AdamOptimizer(0.004).minimize(g_loss, var_list=g_vars)
 
 saver = tf.train.Saver(write_version=tf.train.SaverDef.V1)
 
